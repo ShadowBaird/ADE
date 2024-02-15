@@ -45,7 +45,15 @@
             </div>
 
             <div class="form-group campos" style="margin-top:10px;">
-                <a class="btn btn-secondary" role="button" aria-pressed="true" asp-action="IndexAdmin" style="margin-right:10px;">Regresar</a>
+                @if (User.IsInRole("Usuario"))
+                {
+                    <a class="btn btn-secondary" role="button" aria-pressed="true" asp-action="IndexUsuarios">Regresar</a>
+                }
+                else
+                {
+                    <a class="btn btn-secondary" role="button" aria-pressed="true" asp-action="IndexAdmin">Regresar</a>
+
+                }
                 <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
             </div>
         </form>
