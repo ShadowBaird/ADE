@@ -1,0 +1,18 @@
+.campos{
+    margin-top : 5px;
+}
+.botones-grupo{
+    flex:auto;
+}
+
+.botones {
+    margin-top: 5px;
+}
+
+.imagen {
+    max-height: 300px;
+}
+
+.imagen-texto{
+    color:black;
+}

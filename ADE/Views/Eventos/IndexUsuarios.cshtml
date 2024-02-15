@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ADE.Models.Evento>
+
+@{
+    ViewData["Title"] = "Eventos";
+}
+
+<h1>Mis eventos</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPagarEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AbonadoEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSalonNavigation.NomSalon)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEvento)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.TotalPagarEvento)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.AbonadoEvento)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdSalonNavigation.NomSalon)
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

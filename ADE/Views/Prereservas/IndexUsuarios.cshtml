@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ADE.Models.Prereserva>
+
+@{
+    ViewData["Title"] = "Prereserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Mis Fechas Separadas Temporalmente</h1>
+
+<p>
+    <a class="btn btn-primary" role="button" aria-pressed="true" asp-action="Create">Separar una nueva fecha</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEventoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadPersonasPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEventoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdSalonNavigation.NomSalon)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEventoPrereserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoPrereserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadPersonasPrereserva)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoEventoPrereserva)
+            </td>
+             <td>
+                $@Html.DisplayFor(modelItem => item.TotalPrereserva)
+             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdSalonNavigation.NomSalon)
+            </td>
+                @if (!item.EstadoPrereserva.Contains("Evento agendado"))
+                {
+                    <td>
+                        <div class="botones-grupo">
+                            <a class="btn btn-secondary botones" role="button" aria-pressed="true" asp-action="Editar" asp-route-id="@item.IdPrereserva">Editar</a>
+                            <a class="btn btn-danger botones" role="button" aria-pressed="true" asp-action="Borrar" asp-route-id="@item.IdPrereserva">Borrar</a>
+                        </div>
+
+                    </td>
+                }
+        </tr>
+}
+    </tbody>
+</table>

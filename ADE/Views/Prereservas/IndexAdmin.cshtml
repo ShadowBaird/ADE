@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ADE.Models.Prereserva>
+
+@{
+    ViewData["Title"] = "Prereserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Fechas Separadas Temporalmente</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEventoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation.NombreUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdUsuarioNavigation.TelUsuario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadPersonasPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEventoPrereserva)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPrereserva)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(Model.Count() != 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaEventoPrereserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EstadoPrereserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.NombreUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdUsuarioNavigation.TelUsuario)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CantidadPersonasPrereserva)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoEventoPrereserva)
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.TotalPrereserva)
+                    </td>
+                    <td>
+                        <div class="botones-grupo">
+                            <a class="btn btn-primary botones" role="button" aria-pressed="true" asp-controller="Eventos" asp-action="Registrar" asp-route-id="@item.IdPrereserva">Registrar Evento</a>
+                            <a class="btn btn-secondary botones" role="button" aria-pressed="true" asp-action="Edit" asp-route-id="@item.IdPrereserva">Editar</a>
+                            <a class="btn btn-danger botones" role="button" aria-pressed="true" asp-action="Delete" asp-route-id="@item.IdPrereserva">Borrar</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                    <b>No se encontraron fechas separadas</b>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

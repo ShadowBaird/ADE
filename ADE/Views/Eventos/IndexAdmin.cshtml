@@ -1,0 +1,55 @@
+﻿@model IEnumerable<ADE.Models.Evento>
+
+@{
+    ViewData["Title"] = "Eventos";
+}
+
+<h1>Eventos agendados</h1>
+
+<p>
+    <a class="btn btn-primary" role="button" aria-pressed="true" asp-action="Create">Ingresar un nuevo evento</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreResponsableEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalPagarEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AbonadoEvento)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreResponsableEvento)
+            </td>
+            <td>
+                $@Html.DisplayFor(modelItem => item.TotalPagarEvento)
+            </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.AbonadoEvento)
+                </td>
+            <td>
+                <div class="botones-grupo">
+                        <a class="btn btn-primary botones" role="button" aria-pressed="true" asp-action="Edit" asp-route-id="@item.IdEvento">Editar</a>
+                        <a class="btn btn-danger botones" role="button" aria-pressed="true" asp-action="Delete" asp-route-id="@item.IdEvento">Borrar</a>
+                        <a class="btn btn-secondary botones" role="button" aria-pressed="true" asp-action="Details" asp-route-id="@item.IdEvento">Mas detalles</a>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
