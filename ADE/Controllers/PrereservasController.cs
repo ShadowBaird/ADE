@@ -13,6 +13,10 @@ using ADE.Servicios.Contrato;
 using ADE.Recursos;
 using ADE.Servicios.Implementacion;
 using System.Numerics;
+using System.Data;
+using ClosedXML.Excel;
+using Microsoft.Win32;
+
 
 namespace ADE.Controllers
 {
@@ -31,6 +35,67 @@ namespace ADE.Controllers
 
         }
 
+        public ActionResult Reporte(string selected_nom_res, string fechaInicio, string fechaFin)
+        {
+
+            DataTable dt = new DataTable("Grid");
+            dt.Columns.AddRange(new DataColumn[6] {new DataColumn("Nombre del cliente"),
+                                            new DataColumn("Fecha separada"),
+                                            new DataColumn("Estado"),
+                                            new DataColumn("Tipo de evento"),
+                                            new DataColumn("Cantidad de personas"),
+                                            new DataColumn("Fecha de creacion de registro")});
+
+
+            string dateTime = DateTime.Now.ToShortDateString();
+            DateOnly date = DateOnly.Parse(dateTime);
+            var adminSalonId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var adeContext = _context.Prereservas.Include(p => p.IdSalonNavigation).Include(p => p.IdUsuarioNavigation).Where(p => p.IdSalonNavigation.IdSalon.ToString() == adminSalonId && p.EstadoPrereserva != "Evento agendado" && p.FechaEventoPrereserva.CompareTo(date) >= 0);
+            if (!string.IsNullOrEmpty(selected_nom_res))
+            {
+                adeContext = adeContext.Where(s => s.IdUsuarioNavigation.NombreUsuario.ToString().Equals(selected_nom_res));
+            }
+
+            if (!string.IsNullOrEmpty(fechaInicio))
+            {
+                DateOnly fecha = DateOnly.Parse(fechaInicio);
+                adeContext = adeContext.Where(s => s.FechaEventoPrereserva >= fecha);
+
+            }
+
+            if (!string.IsNullOrEmpty(fechaFin))
+            {
+                DateOnly fecha = DateOnly.Parse(fechaFin);
+                adeContext = adeContext.Where(s => s.FechaEventoPrereserva <= fecha);
+            }
+            foreach (var registro in adeContext)
+            {
+                dt.Rows.Add(registro.IdUsuarioNavigation.NombreUsuario, registro.FechaEventoPrereserva, registro.EstadoPrereserva, registro.TipoEventoPrereserva, registro.CantidadPersonasPrereserva, registro.FechaRegistroPrereserva);
+            }
+            ViewBag.selected_nom_res = selected_nom_res;
+            ViewBag.fechaInicio = fechaInicio;
+            ViewBag.fechaFin = fechaFin;
+
+            var unique_nom_res = from s in adeContext
+            group s by s.IdUsuarioNavigation.NombreUsuario into newGroup
+            where newGroup.Key != null
+            orderby newGroup.Key
+            select new { nom_res = newGroup.Key };
+            ViewBag.unique_nom_res = unique_nom_res.Select(m => new SelectListItem { Value = m.nom_res.ToString(), Text = m.nom_res.ToString() }).ToList();
+
+
+            using (XLWorkbook wb = new XLWorkbook())
+            {
+                wb.Worksheets.Add(dt);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    wb.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Reporte-preregistros.xlsx");
+                }
+            }
+
+        }
+
         // GET: Prereservas
         public async Task<IActionResult> IndexUsuarios()
         {
@@ -41,12 +106,40 @@ namespace ADE.Controllers
             return View(await adeContext.ToListAsync());
         }
 
-        public async Task<IActionResult> IndexAdmin()
+        public async Task<IActionResult> IndexAdmin(string selected_nom_res, string fechaInicio, string fechaFin)
         {
             string dateTime = DateTime.Now.ToShortDateString();
             DateOnly date = DateOnly.Parse(dateTime);
             var adminSalonId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             var adeContext = _context.Prereservas.Include(p => p.IdSalonNavigation).Include(p => p.IdUsuarioNavigation).Where(p => p.IdSalonNavigation.IdSalon.ToString() == adminSalonId && p.EstadoPrereserva != "Evento agendado" && p.FechaEventoPrereserva.CompareTo(date) >= 0);
+            if (!string.IsNullOrEmpty(selected_nom_res))
+            {
+                adeContext = adeContext.Where(s => s.IdUsuarioNavigation.NombreUsuario.ToString().Equals(selected_nom_res));
+            }
+
+            if (!string.IsNullOrEmpty(fechaInicio))
+            {
+                DateOnly fecha = DateOnly.Parse(fechaInicio);
+                adeContext = adeContext.Where(s => s.FechaEventoPrereserva >= fecha);
+
+            }
+
+            if (!string.IsNullOrEmpty(fechaFin))
+            {
+                DateOnly fecha = DateOnly.Parse(fechaFin);
+                adeContext = adeContext.Where(s => s.FechaEventoPrereserva <= fecha);
+            }
+
+            ViewBag.selected_nom_res = selected_nom_res;
+            ViewBag.fechaInicio = fechaInicio;
+            ViewBag.fechaFin = fechaFin;
+
+            var unique_nom_res = from s in adeContext
+                                 group s by s.IdUsuarioNavigation.NombreUsuario into newGroup
+                                 where newGroup.Key != null
+                                 orderby newGroup.Key
+                                 select new { nom_res = newGroup.Key };
+            ViewBag.unique_nom_res = unique_nom_res.Select(m => new SelectListItem { Value = m.nom_res.ToString(), Text = m.nom_res.ToString() }).ToList();
             return View(await adeContext.ToListAsync());
         }
 
