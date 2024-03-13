@@ -8,8 +8,6 @@
 <h1>Editar Prereserva</h1>
 
 <hr />
-<div class="row">
-    <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdPrereserva" />
@@ -17,34 +15,43 @@
             <input type="hidden" asp-for="IdUsuario" />
             <input type="hidden" asp-for="FechaRegistroPrereserva" />
 
+           <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="FechaEventoPrereserva" class="control-label"></label>
+                    <input asp-for="FechaEventoPrereserva" class="form-control" />
+                    <span asp-validation-for="FechaEventoPrereserva" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EstadoPrereserva" class="control-label"></label>
+                    <input asp-for="EstadoPrereserva" class="form-control" />
+                    <span asp-validation-for="EstadoPrereserva" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CantidadPersonasPrereserva" class="control-label"></label>
+                    <input asp-for="CantidadPersonasPrereserva" class="form-control" />
+                    <span asp-validation-for="CantidadPersonasPrereserva" class="text-danger"></span>
+                </div>
+                    </div>
+                    <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="TotalPrereserva" class="control-label"></label>
+                    <input asp-for="TotalPrereserva" class="form-control" />
+                    <span asp-validation-for="TotalPrereserva" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoEventoPrereserva" class="control-label"></label>
+                    <input asp-for="TipoEventoPrereserva" class="form-control" />
+                    <span asp-validation-for="TipoEventoPrereserva" class="text-danger"></span>
+                </div>
+                    </div>
 
-            <div class="form-group">
-                <label asp-for="FechaEventoPrereserva" class="control-label"></label>
-                <input asp-for="FechaEventoPrereserva" class="form-control" />
-                <span asp-validation-for="FechaEventoPrereserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EstadoPrereserva" class="control-label"></label>
-                <input asp-for="EstadoPrereserva" class="form-control" />
-                <span asp-validation-for="EstadoPrereserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CantidadPersonasPrereserva" class="control-label"></label>
-                <input asp-for="CantidadPersonasPrereserva" class="form-control" />
-                <span asp-validation-for="CantidadPersonasPrereserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPrereserva" class="control-label"></label>
-                <input asp-for="TotalPrereserva" class="form-control" />
-                <span asp-validation-for="TotalPrereserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoEventoPrereserva" class="control-label"></label>
-                <input asp-for="TipoEventoPrereserva" class="form-control" />
-                <span asp-validation-for="TipoEventoPrereserva" class="text-danger"></span>
+
+                </div>
             </div>
 
-            <div class="form-group campos" style="margin-top:10px;">
+    <div class="form-group botones-confirmar" style="margin-top:10px;">
                 @if (User.IsInRole("Usuario"))
                 {
                     <a class="btn btn-secondary" role="button" aria-pressed="true" asp-action="IndexUsuarios">Regresar</a>
@@ -57,8 +64,6 @@
                 <input type="submit" value="Guardar Cambios" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
 
 
 @section Scripts {

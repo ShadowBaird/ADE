@@ -6,64 +6,69 @@
 
 <h1>Registrar Evento</h1>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+
         <form asp-action="Registrar">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="FechaEvento" class="control-label"></label>
-                <input id="fecha"  type="date" asp-for="FechaEvento" class="form-control" />
-                <span asp-validation-for="FechaEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CantidadPersonasEvento" class="control-label"></label>
-                <input  asp-for="CantidadPersonasEvento" class="form-control" />
-                <span asp-validation-for="CantidadPersonasEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoEvento" class="control-label"></label>
-                <input  asp-for="TipoEvento" class="form-control" />
-                <span asp-validation-for="TipoEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NombreResponsableEvento" class="control-label"></label>
-                <input  asp-for="NombreResponsableEvento" class="form-control" />
-                <span asp-validation-for="NombreResponsableEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TelefonoResponsableEvento" class="control-label"></label>
-                <input  asp-for="TelefonoResponsableEvento" class="form-control" />
-                <span asp-validation-for="TelefonoResponsableEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalPagarEvento" class="control-label"></label>
-                <input  asp-for="TotalPagarEvento" class="form-control" />
-                <span asp-validation-for="TotalPagarEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AbonadoEvento" class="control-label"></label>
-                <input asp-for="AbonadoEvento" class="form-control" />
-                <span asp-validation-for="AbonadoEvento" class="text-danger"></span>
-            </div>
-            <div class="form-group d-none">
-                <label asp-for="IdSalon" class="control-label"></label>
-                <select  asp-for="IdSalon" class="form-control" asp-items="ViewBag.IdSalon"></select>
-                <span asp-validation-for="IdSalon" class="text-danger"></span>
-            </div>
-            <div class="form-group d-none">
-                <label asp-for="IdPrereserva" class="control-label"></label>
-                <input asp-for="IdPrereserva" class="form-control" />
-                <span asp-validation-for="IdPrereserva" class="text-danger"></span>
-            </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="FechaEvento" class="control-label"></label>
+                    <input id="fecha" type="date" asp-for="FechaEvento" class="form-control" />
+                    <span asp-validation-for="FechaEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CantidadPersonasEvento" class="control-label"></label>
+                    <input asp-for="CantidadPersonasEvento" class="form-control" />
+                    <span asp-validation-for="CantidadPersonasEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TipoEvento" class="control-label"></label>
+                    <input asp-for="TipoEvento" class="form-control" />
+                    <span asp-validation-for="TipoEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NombreResponsableEvento" class="control-label"></label>
+                    <input asp-for="NombreResponsableEvento" class="form-control" />
+                    <span asp-validation-for="NombreResponsableEvento" class="text-danger"></span>
+                </div>
 
-            <div class="form-group campos" style="margin-top:10px;">
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="TelefonoResponsableEvento" class="control-label"></label>
+                    <input asp-for="TelefonoResponsableEvento" class="form-control" />
+                    <span asp-validation-for="TelefonoResponsableEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalPagarEvento" class="control-label"></label>
+                    <input asp-for="TotalPagarEvento" class="form-control" />
+                    <span asp-validation-for="TotalPagarEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AbonadoEvento" class="control-label"></label>
+                    <input asp-for="AbonadoEvento" class="form-control" />
+                    <span asp-validation-for="AbonadoEvento" class="text-danger"></span>
+                </div>
+                <div class="form-group d-none">
+                    <label asp-for="IdSalon" class="control-label"></label>
+                    <select asp-for="IdSalon" class="form-control" asp-items="ViewBag.IdSalon"></select>
+                    <span asp-validation-for="IdSalon" class="text-danger"></span>
+                </div>
+                <div class="form-group d-none">
+                    <label asp-for="IdPrereserva" class="control-label"></label>
+                    <input asp-for="IdPrereserva" class="form-control" />
+                    <span asp-validation-for="IdPrereserva" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group botones-confirmar" style="margin-top:10px;">
                 <a class="btn btn-secondary" role="button" aria-pressed="true" asp-controller="Prereservas" asp-action="IndexAdmin" style="margin-right:10px;">Regresar</a>
                 <input type="submit" value="Registrar evento" class="btn btn-primary" />
             </div>
         </form>
-    </div>
-</div>
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
