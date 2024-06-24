@@ -284,7 +284,14 @@ namespace ADE.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (User.IsInRole("Usuario"))
+            {
+                return RedirectToAction("IndexUsuarios");
+            }
+            else
+            {
+                return RedirectToAction("IndexAdmin");
+            }
         }
 
         private bool PrereservaExists(int id)
